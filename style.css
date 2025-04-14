@@ -74,7 +74,7 @@ nav ul li a:hover {
     height: 100vh;
     min-height: 800px;
     background:
-        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
         url('./atto3.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
@@ -87,7 +87,7 @@ nav ul li a:hover {
     height: 100vh;
     min-height: 800px;
     background:
-        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
         url('./sealion.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
@@ -100,7 +100,7 @@ nav ul li a:hover {
     height: 100vh;
     min-height: 800px;
     background:
-        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
         url('./seal.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
@@ -113,8 +113,21 @@ nav ul li a:hover {
     height: 100vh;
     min-height: 800px;
     background:
-        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
         url('./dolphin.webp') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    padding-top: 60px;
+}
+
+.hero5 {
+    height: 100vh;
+    min-height: 800px;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
+        url('./d9.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -125,6 +138,19 @@ nav ul li a:hover {
 .hero-content {
     width: 100%;
     margin-top: -60vh;
+}
+
+.feature-hero-1{
+    height: 100vh;
+    min-height: 800px;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
+        url('./blade-battery.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: start;
+    text-align: start;
+    color: var(--white);
+    padding-top: 60px;
 }
 
 .hero h1 {
@@ -238,27 +264,26 @@ nav ul li a:hover {
 
 /* Feature Section - Clean Layout */
 .features {
-    padding: 120px 0;
+    padding: 20px;
     background-color: var(--light-gray);
     text-align: center;
 }
 
 .feature-container {
     max-width: 800px;
-    margin: 0 auto;
 }
 
 .feature-title {
     font-size: 40px;
     font-weight: 600;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     letter-spacing: -0.5px;
 }
 
 .feature-subtitle {
     font-size: 21px;
     color: var(--medium-gray);
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     font-weight: 400;
 }
 
