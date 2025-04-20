@@ -75,7 +75,8 @@ nav ul li a:hover {
     min-height: 800px;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
-        url('./atto3.webp') center/cover no-repeat;
+        /* url('./atto3_2_50.webp') center/cover no-repeat; */
+        url('./atto3_1_50.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -88,7 +89,7 @@ nav ul li a:hover {
     min-height: 800px;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
-        url('./sealion.webp') center/cover no-repeat;
+        url('./sealion_50.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -101,7 +102,7 @@ nav ul li a:hover {
     min-height: 800px;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
-        url('./seal.webp') center/cover no-repeat;
+        url('./seal_1.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -114,7 +115,7 @@ nav ul li a:hover {
     min-height: 800px;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
-        url('./dolphin.webp') center/cover no-repeat;
+        url('./dolphin_50.webp') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -127,7 +128,7 @@ nav ul li a:hover {
     min-height: 800px;
     background:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
-        url('./d9.jpg') center/cover no-repeat;
+        url('./dend9.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     text-align: center;
@@ -172,7 +173,7 @@ nav ul li a:hover {
     background:
     linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent),
         /* linear-gradient(rgba(11, 11, 11, 0.2), rgba(0, 0, 0, 0.1)), */
-        url('./e-platform.png') center/cover no-repeat;
+        url('./e-platform.webp') center/cover no-repeat;
     display: flex;
     align-items: start;
     text-align: start;
