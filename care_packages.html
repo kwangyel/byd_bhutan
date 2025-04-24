@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Packages - BYD Bhutan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for care packages page */
+        .care-hero {
+            height: 60vh;
+            min-height: 500px;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+                url('./after_sale.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 60px;
+        }
+
+        .care-hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .care-hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .care-packages {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .care-packages-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .care-packages-title h2 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .care-packages-title p {
+            font-size: 20px;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .care-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .care-card {
+            background-color: var(--light-gray);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .care-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .care-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--byd-blue);
+            color: white;
+        }
+
+        .care-icon svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .care-content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .care-content h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .care-content p {
+            font-size: 16px;
+            color: var(--medium-gray);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .care-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .care-features li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .care-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--byd-blue);
+            font-weight: bold;
+        }
+
+        .care-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--byd-blue);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .care-button:hover {
+            background-color: #00257a;
+        }
+
+        .additional-info {
+            margin-top: 100px;
+            padding: 70px 0;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        .additional-info h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .info-item {
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-item h3 {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--byd-blue);
+        }
+
+        .info-item h3 svg {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .info-item p {
+            font-size: 16px;
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .care-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .care-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .care-hero h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Minimalist Header - Same as index.html -->
+    <header>
+        <div class="container header-container">
+            <div>
+                <img src="./logo.svg" alt="BYD" class="logo">
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 25px; font-weight: 580;padding-left: 4px;">
+                    Bhutan
+                </span>
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 400; padding-left:10px;">
+                    By Asanga Mobility
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Models</a>
+                        <div class="dropdown-content">
+                            <a href="#">BYD ATTO 3</a>
+                            <a href="#">BYD SEAL</a>
+                            <a href="#">BYD SEALION</a>
+                            <a href="#">BYD DOLPHIN</a>
+                            <a href="#">DENZA D9</a>
+                            <a href="#">Upcoming Models</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services</a>
+                        <div class="dropdown-content">
+                            <a href="care_packages.html">Care Packages</a>
+                            <a href="warranty.html">Warranty</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Charging</a>
+                        <div class="dropdown-content">
+                            <a href="home_charging.html">Home Charging</a>
+                            <a href="public_charging.html">Public Charging</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section for Care Packages -->
+    <section class="care-hero">
+        <div class="container">
+            <h1>BYD Care Packages</h1>
+            <p>Premium service plans designed to keep your BYD performing at its best</p>
+        </div>
+    </section>
+
+    <!-- Care Packages Section -->
+    <section class="care-packages">
+        <div class="container">
+            <div class="care-packages-title">
+                <h2>Choose Your Perfect Care Package</h2>
+                <p>Tailored service plans to ensure the longevity and optimal performance of your BYD vehicle</p>
+            </div>
+
+            <div class="care-grid">
+                <!-- Package 1: Essential Care -->
+                <div class="care-card">
+                    <div class="care-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                        </svg>
+                    </div>
+                    <div class="care-content">
+                        <h3>Essential Care</h3>
+                        <p>Keep your BYD in top condition with our basic maintenance package</p>
+                        <ul class="care-features">
+                            <li>Regular maintenance service</li>
+                            <li>Basic battery health checks</li>
+                            <li>Fluid checks and replacements</li>
+                            <li>Multi-point vehicle inspection</li>
+                        </ul>
+                        <a href="#" class="care-button">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Package 2: Premium Care -->
+                <div class="care-card">
+                    <div class="care-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="care-content">
+                        <h3>Premium Care</h3>
+                        <p>Comprehensive care package with extra services for peace of mind</p>
+                        <ul class="care-features">
+                            <li>All Essential Care services</li>
+                            <li>Advanced battery health diagnostics</li>
+                            <li>BYD-certified technicians</li>
+                            <li>Software updates</li>
+                            <li>Priority scheduling</li>
+                        </ul>
+                        <a href="#" class="care-button">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Package 3: Ultimate Care -->
+                <div class="care-card">
+                    <div class="care-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <div class="care-content">
+                        <h3>Ultimate Care</h3>
+                        <p>Complete coverage with premium services for the discerning BYD owner</p>
+                        <ul class="care-features">
+                            <li>All Premium Care services</li>
+                            <li>Genuine parts guarantee</li>
+                            <li>Extended service hours</li>
+                            <li>Complimentary vehicle pickup/delivery</li>
+                            <li>Annual detailed vehicle inspection</li>
+                            <li>24/7 roadside assistance</li>
+                        </ul>
+                        <a href="#" class="care-button">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Information Section -->
+    <section class="additional-info">
+        <div class="container">
+            <h2>Why Choose BYD Care Packages?</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        BYD-certified technicians
+                    </h3>
+                    <p>Our technicians are trained directly by BYD and are experts in electric vehicle technology. They have the knowledge and experience to ensure your BYD performs at its best.</p>
+                </div>
+                <div class="info-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Battery health checks
+                    </h3>
+                    <p>Regular battery health checks ensure optimal performance and longevity of your BYD's battery system. Our diagnostic tools provide comprehensive analysis of your battery's condition.</p>
+                </div>
+                <div class="info-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        Genuine parts guarantee
+                    </h3>
+                    <p>We use only genuine BYD parts to ensure the reliability, safety, and performance of your vehicle. All parts come with warranty protection for your peace of mind.</p>
+                </div>
+                <div class="info-item">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Preventive maintenance
+                    </h3>
+                    <p>Regular maintenance helps identify and address potential issues before they become major problems, saving you time and money while extending the life of your vehicle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Same as index.html -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-bottom">
+                <p>Copyright © 2023 Asanga Mobility. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
