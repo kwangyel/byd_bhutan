@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYD Warranty - Comprehensive Protection for Your Electric Vehicle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .warranty-hero {
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                url('./warranty.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            padding-top: 60px;
+        }
+
+        .warranty-content {
+            text-align: center;
+            margin-top: -10vh;
+        }
+
+        .warranty-details {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+
+        .warranty-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .warranty-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 300px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warranty-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .warranty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: var(--byd-blue);
+        }
+
+        .warranty-card h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--byd-blue);
+        }
+
+        .warranty-card p {
+            font-size: 18px;
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+        }
+
+        .warranty-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .warranty-description {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .warranty-description p {
+            font-size: 18px;
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        .warranty-info {
+            padding: 80px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .info-item h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .info-item p {
+            font-size: 17px;
+            color: var(--medium-gray);
+            line-height: 1.5;
+        }
+
+        .contact-section {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background-color: var(--byd-blue);
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 500;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background-color: #00257a;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Minimalist Header -->
+    <header>
+        <div class="container header-container">
+            <div>
+                <img src="./logo.svg" alt="BYD" class="logo">
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 25px; font-weight: 580;padding-left: 4px;">
+                    Bhutan
+                </span>
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 400; padding-left:10px;">
+                    By Asanga Mobility
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Models</a>
+                        <div class="dropdown-content">
+                            <a href="#">BYD ATTO 3</a>
+                            <a href="#">BYD SEAL</a>
+                            <a href="#">BYD SEALION</a>
+                            <a href="#">BYD DOLPHIN</a>
+                            <a href="#">DENZA D9</a>
+                            <a href="#">Upcoming Models</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services</a>
+                        <div class="dropdown-content">
+                            <a href="care_packages.html">Care Packages</a>
+                            <a href="warranty.html">Warranty</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Charging</a>
+                        <div class="dropdown-content">
+                            <a href="home_charging.html">Home Charging</a>
+                            <a href="public_charging.html">Public Charging</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Warranty Hero Section -->
+    <section class="warranty-hero">
+        <div class="warranty-content">
+            <h1>BYD Warranty</h1>
+            <h2>Peace of mind comes standard with every BYD vehicle</h2>
+        </div>
+    </section>
+
+    <!-- Warranty Details Section -->
+    <section class="warranty-details">
+        <div class="container">
+            <h2 class="feature-title" style="text-align: center;">Comprehensive Warranty Coverage</h2>
+            <p class="feature-subtitle" style="text-align: center;">Your BYD vehicle is protected by our industry-leading warranty</p>
+            
+            <div class="warranty-description">
+                <p>At BYD, we stand behind the quality and reliability of our vehicles. Our comprehensive warranty package gives you peace of mind throughout your ownership experience, covering everything from the advanced battery technology to the entire vehicle.</p>
+            </div>
+            
+            <div class="warranty-cards">
+                <div class="warranty-card">
+                    <h3>8 Years</h3>
+                    <p>Battery Warranty</p>
+                    <p>150,000 km coverage</p>
+                    <p>Protection for your Blade Battery</p>
+                </div>
+                
+                <div class="warranty-card">
+                    <h3>6 Years</h3>
+                    <p>Vehicle Warranty</p>
+                    <p>150,000 km coverage</p>
+                    <p>Comprehensive vehicle protection</p>
+                </div>
+                
+                <div class="warranty-card">
+                    <h3>3 Years</h3>
+                    <p>Roadside Assistance</p>
+                    <p>24/7 emergency support</p>
+                    <p>Peace of mind wherever you go</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Warranty Information Section -->
+    <section class="warranty-info">
+        <div class="container">
+            <h2 class="feature-title" style="text-align: center;">Why BYD Warranty Leads the Industry</h2>
+            <p class="feature-subtitle" style="text-align: center;">Experience unmatched protection for your electric vehicle</p>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Industry-Leading Coverage</h3>
+                    <p>Our warranty coverage exceeds industry standards, providing you with longer protection for both battery and vehicle components.</p>
+                </div>
+                
+                <div class="info-item">
+                    <h3>Transferable Protection</h3>
+                    <p>BYD warranty stays with the vehicle, adding value when it's time to sell or trade your vehicle.</p>
+                </div>
+                
+                <div class="info-item">
+                    <h3>Expert Service</h3>
+                    <p>All warranty work is performed by certified BYD technicians using genuine BYD parts to ensure quality and reliability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="feature-title">Need More Information?</h2>
+            <p class="feature-subtitle">Our customer support team is ready to assist you</p>
+            <a href="#" class="contact-btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-bottom">
+                <p>Copyright © 2023 Asanga Mobility. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
