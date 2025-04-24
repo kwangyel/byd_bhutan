@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYD Public Charging - Electric Mobility in Bhutan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <style>
+        /* Additional styles for the public charging page */
+        .charging-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+                url('./public_charging.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .charging-hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .charging-info {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
+        .charging-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .charging-section-title {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .charging-section-title h2 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .charging-section-title p {
+            font-size: 18px;
+            color: var(--medium-gray);
+        }
+
+        .location-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background-color: var(--white);
+            border: 1px solid #D2D2D7;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background-color: var(--byd-blue);
+            color: var(--white);
+            border-color: var(--byd-blue);
+        }
+
+        .tab-button:hover:not(.active) {
+            background-color: rgba(0, 51, 160, 0.1);
+        }
+
+        .location-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .location-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .location-details {
+            padding: 20px;
+        }
+
+        .location-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .location-address {
+            font-size: 14px;
+            color: var(--medium-gray);
+            margin-bottom: 12px;
+        }
+
+        .location-status {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 12px;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .status-available {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .status-busy {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+
+        .status-maintenance {
+            background-color: #FFEBEE;
+            color: #C62828;
+        }
+
+        .location-features {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .dzongkhag-section {
+            padding: 60px 0;
+        }
+
+        .dzongkhag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .dzongkhag-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .dzongkhag-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dzongkhag-image {
+            height: 120px;
+            background-color: var(--byd-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .dzongkhag-details {
+            padding: 15px;
+        }
+
+        .dzongkhag-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .dzongkhag-info {
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+
+        .charging-info-section {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background-color: var(--light-gray);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--byd-blue);
+        }
+
+        .info-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .info-text {
+            font-size: 16px;
+            color: var(--medium-gray);
+            line-height: 1.5;
+        }
+
+        .map-section {
+            height: 500px;
+            position: relative;
+            /* margin-top: 20px;
+            margin-bottom: 20px; */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .map-popup {
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+        }
+        
+        .map-popup h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .map-popup p.status {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .map-popup p.info {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+
+        /* Tab content styling */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .location-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dzongkhag-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Minimalist Header -->
+    <header>
+        <div class="container header-container">
+            <div>
+                <img src="./logo.svg" alt="BYD" class="logo">
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 25px; font-weight: 580;padding-left: 4px;">
+                    Bhutan
+                </span>
+                <span
+                    style="color: white; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 14px; font-weight: 400; padding-left:10px;">
+                    By Asanga Mobility
+                </span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Models</a>
+                        <div class="dropdown-content">
+                            <a href="#">BYD ATTO 3</a>
+                            <a href="#">BYD SEAL</a>
+                            <a href="#">BYD SEALION</a>
+                            <a href="#">BYD DOLPHIN</a>
+                            <a href="#">DENZA D9</a>
+                            <a href="#">Upcoming Models</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services</a>
+                        <div class="dropdown-content">
+                            <a href="#">Care Packages</a>
+                            <a href="#">Warranty</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="charging.html">Charging</a>
+                        <div class="dropdown-content">
+                            <a href="home_charging.html">Home Charging</a>
+                            <a href="public_charging.html">Public Charging</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Public Charging Hero Section -->
+    <section class="charging-hero">
+        <div class="charging-hero-content">
+            <h1>Public Charging Network</h1>
+            <p style="font-size: 20px; margin-top: 10px;">Access extensive charging network across Bhutan</p>
+        </div>
+    </section>
+
+    <!-- Charging Network Information -->
+    <section class="charging-info">
+        <div class="container charging-container">
+            <div id="all-locations" class="tab-content active">
+                <div class="location-container">
+                    <!-- Location Card 1 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./changlimithang.jpeg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Changlimithang</h3>
+                            <p class="location-address">Norzin Lam, Thimphu</p>
+                            <span class="location-status status-available">Available</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Fast Charging</div>
+                                <div class="feature-item">🔌 2 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card 2 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./others.jpg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Centenary Farmers Market</h3>
+                            <p class="location-address">Chogyal Lam, Thimphu</p>
+                            <span class="location-status status-busy">Busy</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Fast Charging</div>
+                                <div class="feature-item">🔌 3 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card 3 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./charger2.jpg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Thimphu TechPark</h3>
+                            <p class="location-address">Babesa, Thimphu</p>
+                            <span class="location-status status-available">Available</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Fast Charging</div>
+                                <div class="feature-item">🔌 2 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card 4 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./charger2.jpg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Royal Thimphu College</h3>
+                            <p class="location-address">Ngabiphu, Thimphu</p>
+                            <span class="location-status status-available">Available</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Standard Charging</div>
+                                <div class="feature-item">🔌 4 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card 5 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./charger2.jpg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Jigme Dorji Wangchuck National Referral Hospital</h3>
+                            <p class="location-address">Gongphel Lam, Thimphu</p>
+                            <span class="location-status status-maintenance">Under Maintenance</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Fast Charging</div>
+                                <div class="feature-item">🔌 2 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Card 6 -->
+                    <div class="location-card">
+                        <div class="location-image" style="background-image: url('./charger2.jpg');"></div>
+                        <div class="location-details">
+                            <h3 class="location-name">Chubachu Shopping Complex</h3>
+                            <p class="location-address">Chubachu, Thimphu</p>
+                            <span class="location-status status-available">Available</span>
+                            <div class="location-features">
+                                <div class="feature-item">⚡ Fast Charging</div>
+                                <div class="feature-item">🔌 3 Ports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More location cards would go here -->
+                    <!-- Showing 6 out of 20 Thimphu locations for brevity -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" style="padding:0px 60px !important;">
+        <div id="map"></div>
+    </section>
+
+    <!-- Dzongkhag Charging Locations -->
+    <section class="dzongkhag-section">
+        <div class="container">
+            <div class="charging-section-title">
+                <h2>Nationwide Charging Network</h2>
+                <p>One charging station in each dzongkhag for countrywide coverage</p>
+            </div>
+
+            <div class="dzongkhag-grid">
+                <!-- Dzongkhag Card 1 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Paro</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Paro International Airport</h3>
+                        <p class="dzongkhag-info">Fast Charging • 2 Ports</p>
+                    </div>
+                </div>
+
+                <!-- Dzongkhag Card 2 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Punakha</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Punakha Dzong Parking</h3>
+                        <p class="dzongkhag-info">Fast Charging • 2 Ports</p>
+                    </div>
+                </div>
+
+                <!-- Dzongkhag Card 3 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Wangdue</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Bajo Town Center</h3>
+                        <p class="dzongkhag-info">Standard Charging • 2 Ports</p>
+                    </div>
+                </div>
+
+                <!-- Dzongkhag Card 4 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Bumthang</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Jakar Town</h3>
+                        <p class="dzongkhag-info">Fast Charging • 1 Port</p>
+                    </div>
+                </div>
+
+                <!-- Dzongkhag Card 5 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Trongsa</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Trongsa Dzong Viewpoint</h3>
+                        <p class="dzongkhag-info">Standard Charging • 1 Port</p>
+                    </div>
+                </div>
+
+                <!-- Dzongkhag Card 6 -->
+                <div class="dzongkhag-card">
+                    <div class="dzongkhag-image">Mongar</div>
+                    <div class="dzongkhag-details">
+                        <h3 class="dzongkhag-name">Mongar Town Center</h3>
+                        <p class="dzongkhag-info">Fast Charging • 1 Port</p>
+                    </div>
+                </div>
+
+                <!-- More dzongkhag cards would go here -->
+                <!-- Showing 6 out of 20 dzongkhags for brevity -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-bottom">
+                <p>Copyright © 2025 Asanga Mobility. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple tab functionality
+        function openTab(tabId) {
+            // Hide all tab content
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Deactivate all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Highlight the clicked button
+            event.currentTarget.classList.add('active');
+        }
+
+        // Initialize map when the page has loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Thimphu coordinates
+            const thimphu = [27.4712, 89.6339]; // Note: Leaflet uses [lat, lng] format
+            
+            // Create map centered on Thimphu
+            const map = L.map('map', {
+                center: thimphu,
+                zoom: 13,
+                scrollWheelZoom: true,
+                zoomControl: true
+            });
+            
+            // Add a beautiful custom tile layer from Stadia Maps
+            L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                attribution: '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Charging station locations in Thimphu
+            const locations = [
+                { 
+                    name: "Changlimithang", 
+                    position: [27.4738, 89.6382],
+                    status: "Available",
+                    info: "Fast Charging • 2 Ports",
+                    color: "#2E7D32" // Green for available
+                },
+                { 
+                    name: "Centenary Farmers Market", 
+                    position: [27.4689, 89.6419],
+                    status: "Busy",
+                    info: "Fast Charging • 3 Ports",
+                    color: "#E65100" // Orange for busy
+                },
+                { 
+                    name: "Thimphu TechPark", 
+                    position: [27.4424, 89.6583],
+                    status: "Available",
+                    info: "Fast Charging • 2 Ports",
+                    color: "#2E7D32"
+                },
+                { 
+                    name: "Royal Thimphu College", 
+                    position: [27.4942, 89.6942],
+                    status: "Available",
+                    info: "Standard Charging • 4 Ports",
+                    color: "#2E7D32"
+                },
+                { 
+                    name: "Jigme Dorji Wangchuck National Referral Hospital", 
+                    position: [27.4760, 89.6358],
+                    status: "Under Maintenance",
+                    info: "Fast Charging • 2 Ports",
+                    color: "#C62828" // Red for maintenance
+                },
+                { 
+                    name: "Chubachu Shopping Complex", 
+                    position: [27.4805, 89.6346],
+                    status: "Available",
+                    info: "Fast Charging • 3 Ports",
+                    color: "#2E7D32"
+                }
+            ];
+
+            // Create markers with pulse animation
+            locations.forEach(location => {
+                // Create a marker with a custom icon
+                const icon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: `<div style="background-color: ${location.color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 2px ${location.color}, 0px 0px 10px rgba(0,0,0,0.3);"></div>`,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+
+                // Create marker
+                const marker = L.marker(location.position, {
+                    icon: icon,
+                    title: location.name
+                }).addTo(map);
+
+                // Create popup content
+                const popupContent = `
+                    <div class="map-popup">
+                        <h3>${location.name}</h3>
+                        <p class="status" style="color: ${location.color};">${location.status}</p>
+                        <p class="info">${location.info}</p>
+                    </div>
+                `;
+
+                // Bind popup to marker
+                marker.bindPopup(popupContent);
+                
+                // Add pulse animation effect
+                if (location.status === "Available") {
+                    // Create pulse animation
+                    const pulseCircle = L.circleMarker(location.position, {
+                        radius: 15,
+                        color: location.color,
+                        fillColor: location.color,
+                        fillOpacity: 0.3,
+                        weight: 2,
+                        opacity: 0.6
+                    }).addTo(map);
+                    
+                    // Create pulse animation
+                    let animationSize = 15;
+                    const pulseAnimation = setInterval(() => {
+                        animationSize += 1;
+                        pulseCircle.setRadius(animationSize);
+                        pulseCircle.setStyle({
+                            fillOpacity: Math.max(0, 0.3 - (animationSize - 15) * 0.02),
+                            opacity: Math.max(0, 0.6 - (animationSize - 15) * 0.04)
+                        });
+                        
+                        if (animationSize > 30) {
+                            animationSize = 15;
+                        }
+                    }, 100);
+                }
+            });
+            
+            // Add scale control
+            L.control.scale({position: 'bottomright', imperial: false}).addTo(map);
+        });
+    </script>
+
+    <!-- Load Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+</body>
+</html>
